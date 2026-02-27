@@ -1,12 +1,30 @@
 # settings.py
 
 # --- Geometry Parameters ---
-base_h, base_w, base_t = 60.0, 15.0, 8.0
-arm_l, arm_t = 52, 8.0
-rib_t, rib_l = 5.0, 52
-hole_d, hole_pitch, hole_edge_offset = 4.0, 20.0, 15.0
-total_w = base_w * 2.0
-tightness = 0.01
+params = {
+    "base_w": 15.0,
+    "base_h": 60.0,
+    "arm_l": 52,
+    "base_t": 8,
+    "arm_t": 8,
+    "rib_t": 5,
+    "rib_l" : 52,
+    "hole_d": 4,
+    "hole_pitch": 20,
+    "hole_edge_offset": 15,
+    "tightness": 0.2 
+} 
+base_w= 15.0
+base_h= 60.0
+arm_l= 52
+base_t= 8
+arm_t= 8
+rib_t= 5
+rib_l= 52
+hole_d= 4
+hole_pitch= 20
+hole_edge_offset= 15
+tightness= 0.2 
 
 # --- Material Properties ---
 material_name = 'PLA'

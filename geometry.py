@@ -28,8 +28,8 @@ def create_and_export_geometry(params):
     face = Part.Face(wire)
 
     # Extrude symmetrically along X
-    bracket = face.extrude(Vector(params['total_w'], 0, 0))
-    bracket.translate(Vector(-params['total_w']/ 2.0, 0, 0)) 
+    bracket = face.extrude(Vector(params['base_w']*2, 0, 0))
+    bracket.translate(Vector(- params['base_w'], 0, 0)) 
 
     # Holes
     h1_y = params['hole_edge_offset']
@@ -61,11 +61,11 @@ def create_and_export_geometry(params):
     rib_shape = rib_face.extrude(Vector(params['rib_t'], 0, 0))
 
     left_rib = rib_shape.copy()
-    left_rib.translate(Vector(-params['total_w'] / 2.0, 0, 0))
+    left_rib.translate(Vector(-params['base_w'], 0, 0))
     right_rib = rib_shape.copy()
-    right_rib.translate(Vector((params['total_w'] / 2.0) - params['rib_t'], 0, 0))
+    right_rib.translate(Vector((params['base_w'] - params['rib_t'], 0, 0)))
 
     # Fuse and export
     final_part = bracket.fuse([left_rib, right_rib])
-    final_part.exportStep(params['step_file'])
-    print(f"Geometry successfully exported to {params['step_file']}")
+    final_part.exportStep(settings.step_file)
+    print(f"Geometry successfully exported to {settings.step_file}")
