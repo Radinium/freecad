@@ -1,0 +1,8 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python.analysis.extraPaths": [
+        "C:\\Program Files\\FreeCAD 1.0\\bin",
+        "C:\\Program Files\\FreeCAD 1.0\\Mod",
+        "C:\\Program Files\\FreeCAD 1.0\\lib"
+    ]
+}
