@@ -1,3 +1,5 @@
-analysis_results2.vtk
-bracket_mesh2.vtk
-bracket2.step
+mesh/
+results/
+geometry/
+.vscode/
+__pycache__/
