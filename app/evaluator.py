@@ -2,11 +2,8 @@
 import FreeCAD as App
 import Part
 import ObjectsFem
-import settings
-import geometry
-import meshing
-import fea_setup
-import post_processing
+from . import geometry, fea_setup, meshing, post_processing, settings
+
 
 def evaluate_design(params):
     #print("--- 1. Creating Geometry ---")

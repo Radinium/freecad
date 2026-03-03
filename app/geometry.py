@@ -2,7 +2,7 @@
 import FreeCAD as App
 import Part
 from FreeCAD import Vector
-import settings
+from . import settings
 
 def create_and_export_geometry(params):
     if App.ActiveDocument is None:

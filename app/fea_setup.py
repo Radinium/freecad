@@ -3,9 +3,10 @@ import ObjectsFem
 import femsolver.calculix.solver
 from femtools import ccxtools
 import feminout.importVTKResults
-import settings
+from . import settings
 import meshio
 import numpy as np
+import FreeCAD as App
 def apply_material(doc, analysis):
     material = ObjectsFem.makeMaterialSolid(doc, "SolidMaterial")
     mat_dict = material.Material
@@ -25,8 +26,9 @@ def apply_boundary_conditions(doc, part_obj, analysis):
 
     force = ObjectsFem.makeConstraintForce(doc, "ForceConstraint")
     force.References = [(part_obj, "Face5")]
-    force.Force = settings.force_magnitude
+    force.Force = App.Units.Quantity(settings.force_magnitude)
     force.Reversed = True
+
     analysis.addObject(force)
 
 def solve_and_export(doc, analysis):

@@ -1,7 +1,7 @@
 # meshing.py
 import ObjectsFem
 from femmesh.gmshtools import GmshTools
-import settings
+from . import settings
 
 def create_mesh(doc, part_obj, analysis):
     gmsh_mesh = ObjectsFem.makeMeshGmsh(doc, "GmshMesh")

@@ -1,33 +1,18 @@
 
 import logging
 from scipy.optimize import differential_evolution
-import settings
-from evaluator import evaluate_design
-
+from . import settings, evaluator
 # --- Optimization Settings ---
-ALLOWABLE_STRESS = 30  # MPa
+ALLOWABLE_STRESS = 17600000  # MPa
 MAX_DISP = 2.0         # mm
 
-logging.basicConfig(filename="opt_log.txt", level=logging.INFO, filemode='w')
+logging.basicConfig(filename="opt_log.txt", level=logging.INFO, filemode='w', format='%(message)s')
 
-base_params = {
-    "base_h": settings.base_h,
-    "base_w": settings.base_w,
-    "base_t": settings.base_t,
-    "arm_l": settings.arm_l,
-    "arm_t": settings.arm_t,
-    "rib_t": settings.rib_t,
-    "rib_l": settings.rib_l,
-    "hole_d": settings.hole_d,
-    "hole_pitch": settings.hole_pitch,
-    "hole_edge_offset": settings.hole_edge_offset,
-    "tightness": settings.tightness
-}
-
+base_params= settings.params.copy()
 bounds = [
-    (6, 8),   # base_t
-    (6, 8),   # arm_t
-    (4, 6),   # rib_t
+    (3, 8),   # base_t
+    (3, 8),   # arm_t
+    (3, 8),   # rib_t
 ]
 
 def objective(x):
@@ -36,7 +21,7 @@ def objective(x):
     params["arm_t"]  = x[1]
     params["rib_t"]  = x[2]
 
-    results = evaluate_design(params)
+    results = evaluator.evaluate_design(params)
 
     # --- FIX: Convert FreeCAD Quantities to floats ---
     mass = results['mass'].Value if hasattr(results['mass'], 'Value') else float(results['mass'])
@@ -63,8 +48,8 @@ def run_optimization():
     result = differential_evolution(
         objective,
         bounds,
-        maxiter=3,
-        popsize=2,
+        maxiter=2,
+        popsize=1,
     )
 
     print("\nOptimization Complete!")
@@ -76,7 +61,7 @@ def run_optimization():
     best_params["rib_t"] = result.x[2]
     
     print("\nEvaluating final optimal design...")
-    final_results = evaluate_design(best_params)
+    final_results = evaluator.evaluate_design(best_params)
     
     print("\nFinal Performance:")
     for key, value in final_results.items():
